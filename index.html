@@ -76,6 +76,20 @@
   .tagline::before { content: "— "; color: var(--wood); }
   @media (max-width: 620px) { .tagline { display: none; } }
 
+  .btn-fs {
+    margin-left: auto;
+    width: 38px; height: 38px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .btn-fs:hover { border-color: var(--wood); color: var(--wood); background: #fff; }
+  .btn-fs svg { width: 16px; height: 16px; display: block; }
+  .btn-fs[hidden] { display: none; }
+
   /* ---------- Layout ---------- */
   main {
     max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px;
@@ -266,6 +280,16 @@
       </div>
     </div>
     <div class="tagline">Ø mínimo de tronco para viga de madera</div>
+    <button type="button" class="btn-fs" id="btnFs" title="Pantalla completa" aria-label="Pantalla completa">
+      <!-- expandir -->
+      <svg id="fsIconExpand" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/>
+      </svg>
+      <!-- contraer -->
+      <svg id="fsIconShrink" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <path d="M5 1v4H1M11 5V1M11 5h4M15 11h-4v4M5 15v-4H1"/>
+      </svg>
+    </button>
   </div>
 </header>
 
@@ -283,16 +307,16 @@
           <div class="field-row">
             <div class="field">
               <label for="ancho">Ancho <span>cm</span></label>
-              <input type="text" inputmode="decimal" id="ancho" placeholder="10">
+              <input type="text" inputmode="decimal" id="ancho">
             </div>
             <div class="field">
               <label for="alto">Alto <span>cm</span></label>
-              <input type="text" inputmode="decimal" id="alto" placeholder="20">
+              <input type="text" inputmode="decimal" id="alto">
             </div>
           </div>
           <div class="field">
             <label for="largo">Largo <span class="opt">* opcional — m</span></label>
-            <input type="text" inputmode="decimal" id="largo" placeholder="4">
+            <input type="text" inputmode="decimal" id="largo">
           </div>
           <button type="submit" class="btn-calc">Calcular</button>
         </form>
@@ -565,6 +589,35 @@
 
     s += "</svg>";
     $("vizPersp").innerHTML = s;
+  }
+
+  // pantalla completa (con fallback webkit para Safari antiguo)
+  var btnFs = $("btnFs");
+  var docEl = document.documentElement;
+  var reqFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
+  var exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+  function fsElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
+  if (!reqFs) {
+    btnFs.hidden = true; // p. ej. Safari en iPhone no lo soporta
+  } else {
+    btnFs.addEventListener("click", function () {
+      if (fsElement()) {
+        exitFs.call(document);
+      } else {
+        reqFs.call(docEl);
+      }
+    });
+    ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) {
+      document.addEventListener(ev, function () {
+        var fs = !!fsElement();
+        $("fsIconExpand").style.display = fs ? "none" : "block";
+        $("fsIconShrink").style.display = fs ? "block" : "none";
+        btnFs.title = fs ? "Salir de pantalla completa" : "Pantalla completa";
+        btnFs.setAttribute("aria-label", btnFs.title);
+      });
+    });
   }
 
   // recálculo en vivo una vez mostrado el primer resultado
