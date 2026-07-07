@@ -90,6 +90,22 @@
   .btn-fs svg { width: 16px; height: 16px; display: block; }
   .btn-fs[hidden] { display: none; }
 
+  /* en pantallas estrechas el botón se ancla a la esquina para
+     que el header no crezca a una segunda línea */
+  @media (max-width: 620px) {
+    .header-inner { padding: 12px 60px 12px 16px; }
+    .btn-fs {
+      position: absolute;
+      top: 50%; right: 14px;
+      transform: translateY(-50%);
+      width: 34px; height: 34px;
+    }
+    .logo { gap: 10px; }
+    .logo-mark { width: 46px; }
+    .logo-text .brand { font-size: .88rem; }
+    .logo-text .app { font-size: .74rem; }
+  }
+
   /* ---------- Layout ---------- */
   main {
     max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px;
