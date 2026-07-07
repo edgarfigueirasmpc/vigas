@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIGAS · Cálculo de troncos para vigas de madera</title>
-<meta name="description" content="Calcula el diámetro mínimo de tronco necesario para obtener una viga de madera de sección ancho × alto.">
+<title>VIGAS · Maderas Paco Cacharolo — cálculo de troncos para vigas</title>
+<meta name="description" content="Calcula el diámetro mínimo de tronco necesario para obtener una viga de madera de sección ancho × alto. Maderas Paco Cacharolo.">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 100"%3E%3Ccircle cx="55" cy="50" r="48" fill="%23f4ead9"/%3E%3Cg fill="none" stroke="%23dcc19c" stroke-width="2"%3E%3Ccircle cx="55" cy="50" r="14"/%3E%3Ccircle cx="55" cy="50" r="26"/%3E%3Ccircle cx="55" cy="50" r="38"/%3E%3C/g%3E%3Ccircle cx="55" cy="50" r="48" fill="none" stroke="%23a9713b" stroke-width="3"/%3E%3Ctext x="55" y="82" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="86" fill="%23f5820b"%3EM%3C/text%3E%3Ctext x="29" y="57" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="%231e3a9f"%3EP%3C/text%3E%3Ctext x="81" y="88" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="%231e3a9f"%3EC%3C/text%3E%3C/svg%3E'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -23,6 +24,8 @@
     --green: #2e7d4f;
     --green-dark: #245f3d;
     --dim: #8a8478;
+    --brand-blue: #1e3a9f;
+    --brand-orange: #f5820b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -50,16 +53,28 @@
     max-width: 1100px; margin: 0 auto; padding: 18px 24px;
     display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
   }
+  .header-inner { align-items: center; }
   .logo {
-    font-weight: 600; font-size: 1.35rem; letter-spacing: .18em;
+    display: flex; align-items: center; gap: 14px; cursor: default;
   }
-  .logo .dot { color: var(--wood); }
+  .logo-mark { width: 60px; height: auto; flex: none; }
+  .logo-text .brand {
+    font-weight: 600; font-size: 1.02rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--brand-blue); line-height: 1.25;
+  }
+  .logo-text .brand em { font-style: normal; color: var(--brand-orange); }
+  .logo-text .app {
+    font-weight: 600; font-size: .82rem; letter-spacing: .18em;
+    color: var(--ink);
+  }
+  .logo-text .app .dot { color: var(--wood); }
   .tagline {
     font-family: 'IBM Plex Mono', monospace;
     font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
     color: var(--ink-soft);
   }
   .tagline::before { content: "— "; color: var(--wood); }
+  @media (max-width: 620px) { .tagline { display: none; } }
 
   /* ---------- Layout ---------- */
   main {
@@ -95,7 +110,7 @@
   }
   .card-num {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: .7rem; color: var(--wood);
+    font-size: .7rem; color: var(--brand-blue);
   }
   .card-body { padding: 22px 20px; }
 
@@ -200,10 +215,9 @@
   /* ---------- Visualización ---------- */
   .viz-grid { display: grid; gap: 28px; }
   .viz-body { padding: 10px; }
-  svg { display: block; width: 100%; height: auto; }
-  svg text {
+  .viz-body svg { display: block; width: 100%; height: auto; }
+  .viz-body svg text {
     font-family: 'IBM Plex Mono', monospace;
-    fill: var(--ink);
   }
   .placeholder-msg {
     padding: 60px 30px; text-align: center;
@@ -227,7 +241,30 @@
 
 <header>
   <div class="header-inner">
-    <div class="logo">VIGAS<span class="dot">.</span>CALC</div>
+    <div class="logo" title="Maderas Paco Cacharolo">
+      <!-- Monograma PMC sobre testa de tronco -->
+      <svg class="logo-mark" viewBox="0 0 110 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Maderas Paco Cacharolo">
+        <circle cx="58" cy="55" r="44" fill="#f4ead9"/>
+        <g fill="none" stroke="#dcc19c" stroke-width="1.4">
+          <circle cx="55" cy="57" r="11"/>
+          <circle cx="55" cy="57" r="21"/>
+          <circle cx="55" cy="57" r="31"/>
+          <circle cx="55" cy="57" r="39"/>
+        </g>
+        <g font-family="Georgia, 'Times New Roman', serif" font-weight="bold" text-anchor="middle">
+          <text x="56" y="84" font-size="92" fill="#fdfcf9" opacity=".9" transform="translate(2.5,2.5)">M</text>
+          <text x="56" y="84" font-size="92" fill="#f5820b">M</text>
+          <text x="25" y="56" font-size="56" fill="#fdfcf9" opacity=".9" transform="translate(2.5,2.5)">P</text>
+          <text x="25" y="56" font-size="56" fill="#1e3a9f">P</text>
+          <text x="86" y="92" font-size="56" fill="#fdfcf9" opacity=".9" transform="translate(2.5,2.5)">C</text>
+          <text x="86" y="92" font-size="56" fill="#1e3a9f">C</text>
+        </g>
+      </svg>
+      <div class="logo-text">
+        <div class="brand">Maderas <em>Paco Cacharolo</em></div>
+        <div class="app">VIGAS<span class="dot">.</span>CALC</div>
+      </div>
+    </div>
     <div class="tagline">Ø mínimo de tronco para viga de madera</div>
   </div>
 </header>
@@ -324,7 +361,7 @@
 </main>
 
 <footer>
-  vigas.calc <span>&#8960;</span> teorema de pitágoras aplicado a la madera
+  maderas paco cacharolo <span>&#8960;</span> vigas.calc <span>&#8960;</span> teorema de pitágoras aplicado a la madera
 </footer>
 
 <script>
